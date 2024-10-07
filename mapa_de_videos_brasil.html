@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Na Real - Infográfico Interativo</title>
+    <!-- Link para o Font Awesome (ícones) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e4c8e; /* Cor azul escuro do canal */
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .section:hover {
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 3em;
+            color: #f78c1e; /* Cor laranja do canal */
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #1e4c8e; /* Azul escuro */
+        }
+
+        p {
+            color: #666;
+        }
+
+        .video-container {
+            position: relative;
+            padding-top: 56.25%;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e4c8e;
+            color: white;
+        }
+
+        /* Card interativo no lado esquerdo */
+        .dax-card {
+            position: fixed;
+            top: 30%;
+            left: 0;
+            background-color: #f78c1e; /* Cor laranja */
+            color: white;
+            width: 250px;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .dax-card:hover {
+            transform: translateX(10px);
+        }
+
+        .dax-card i {
+            font-size: 2.5em;
+        }
+
+        .dax-card p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .dax-card a {
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Power BI Na Real - Infográfico Interativo</h1>
+    </header>
+
+    <!-- Card interativo com link para o SQLBI DAX -->
+    <div class="dax-card">
+        <i class="fas fa-calculator"></i>
+        <div>
+            <p><a href="https://www.sqlbi.com/topics/dax/" target="_blank">Aprenda mais sobre DAX</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Seção 1 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h2>Introdução ao Power BI</h2>
+            <p>Aprenda os conceitos básicos do Power BI.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/4U2M6aRTaHk" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 2 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <h2>Conectando Fontes de Dados</h2>
+            <p>Veja como conectar diferentes fontes de dados no Power BI.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/smbHuyJMBtc" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 3 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <h2>Criação de Gráficos</h2>
+            <p>Descubra como criar visualizações poderosas.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/LT45mtuPX3Q" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 4 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-filter"></i>
+            </div>
+            <h2>Filtros e Segmentações</h2>
+            <p>Entenda como usar filtros e segmentações no Power BI.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/396eApVD53E" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 5 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h2>DAX - Linguagem de Expressões</h2>
+            <p>Aprenda a usar DAX para cálculos avançados.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/4U2M6aRTaHk" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 6 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <h2>Publicação de Relatórios</h2>
+            <p>Veja como publicar e compartilhar seus relatórios no Power BI Service.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/sqvwcQxNT0U" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 7 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-cloud"></i>
+            </div>
+            <h2>Trabalhando com Power BI Online</h2>
+            <p>Entenda como gerenciar relatórios na plataforma online.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/smbHuyJMBtc" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 8 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Segurança e Acesso</h2>
+            <p>Aprenda a configurar segurança e permissões no Power BI.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/smbHuyJMBtc" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Power BI Na Real - Todos os direitos reservados</p>
+    </footer>
+
+</body>
+</html>
