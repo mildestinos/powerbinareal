@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI Na Real</title>
+    <!-- Link para o Font Awesome (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e4c8e;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #f78c1e;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section:hover {
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 3em;
+            color: #f78c1e;
+            margin-bottom: 10px;
+        }
+
+        .section h2 {
+            color: #1e4c8e;
+        }
+
+        .section p {
+            color: #666;
+        }
+
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* Mantém a proporção 16:9 */
+            flex-shrink: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* News Ticker fixado no rodapé */
+        .news-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #FF0000;
+            color: white;
+            padding: 10px 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .news-ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+            padding-left: 100%;
+            animation: ticker 40s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .news-ticker-content span {
+            margin-right: 50px;
+            font-size: 1.2em;
+        }
+
+        .news-ticker-content i {
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #1e4c8e;
+            color: white;
+        }
+
+        /* Cards interativos no lado esquerdo */
+        .cards-container {
+            position: fixed;
+            top: 15%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card {
+            background-color: #f78c1e;
+            color: white;
+            width: 250px;
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateX(10px);
+        }
+
+        .card i {
+            font-size: 2em;
+        }
+
+        .card p {
+            margin: 5px 0 0;
+            font-size: 1em;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        /* Iframe container */
+        #iframeContainer {
+            display: none;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Ocultar conteúdo extra quando o iframe for exibido */
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .cards-container {
+                display: none;
+            }
+
+            .section {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .icon {
+                font-size: 2em;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Power BI Na Real</h1>
+        <!-- Links das Redes Sociais -->
+        <div class="social-links">
+            <a href="https://www.instagram.com/ericvieira_df" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/ericvieiradf/" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.youtube.com/@powerbinareal?sub_confirmation=1" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Cards interativos na lateral esquerda -->
+    <div class="cards-container" id="cardsContainer">
+        <!-- Card 1 - Perfil -->
+       
+
+        <!-- Card 2 -->
+        <div class="card">
+            <i class="fas fa-book"></i>
+            <p><a href="https://docs.microsoft.com/pt-br/power-bi/" target="_blank">Documentação do Power BI</a></p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <i class="fas fa-video"></i>
+            <p><a href="https://www.youtube.com/@powerbinareal?sub_confirmation=1" target="_blank">Canal do YouTube</a></p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <i class="fas fa-file-alt"></i>
+            <p><a href="pagina_de_artigos.html" target="_self">Artigos</a></p>
+        </div>
+
+        <!-- Card 5 - Mapa Mental DAX -->
+        <div class="card" id="mapaMentalCard">
+            <i class="fas fa-sitemap"></i>
+            <p><a href="#" id="openMapaMental">Mapa Mental DAX</a></p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <i class="fas fa-book"></i>
+            <p><a href="livros.html" target="_self">Livros DAX/ M e IA</a></p>
+        </div>
+    </div>
+
+    <!-- Iframe para exibir o mapa mental -->
+    <div id="iframeContainer">
+        <iframe id="iframeMapaMental" src="" width="100%" height="600px" style="border:none;"></iframe>
+        <button id="closeIframe" style="display: block; margin: 10px auto;">Fechar Mapa Mental</button>
+    </div>
+
+    <!-- Seções de vídeos e conteúdo principal -->
+    <div class="container" id="conteudoPrincipal">
+        <!-- Seção 1 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h2>Relatório em PDF</h2>
+            <p>Aprenda a automatizar os relatórios e exportar o PDF.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/4U2M6aRTaHk" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 2 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h2>Execícios com Datas</h2>
+            <p>Melhorando as análises de tempos.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/smbHuyJMBtc" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 3 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <h2>Técnicas de ETL</h2>
+            <p>Prepar os dados com linguagem M.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/LT45mtuPX3Q" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 4 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <h2>Formatar Números</h2>
+            <p>Dicas que podem melhorar os visuais.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/396eApVD53E" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 5 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h2>Ranking na Categoria</h2>
+            <p>Usando a linguagem M para criar ranking.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/viVyWtemjE4?start=293" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 6 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-list"></i>
+            </div>
+            <h2>Listas no Power Query</h2>
+            <p>Aprenda a criar listas no Power Query.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/sqvwcQxNT0U" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Seção 7 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h2>Trabalhando com Datas</h2>
+            <p>Um dos vídeos mais assistidos do canal.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/JfjAe4VrIL8" allowfullscreen></iframe>
+            </div>
+        </div>
+        <!-- Seção 8 -->
+        <div class="section">
+            <div class="icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <h2>Etapas ETL</h2>
+            <p>10 etapas que vão fazer você voar.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Yq6zsFISm-g?start=53" allowfullscreen></iframe>
+            </div>
+        </div>
+		
+		 <div class="section">
+            <div class="icon">
+        <i class="fas fa-pencil-alt"></i>
+            </div>
+            <h2>Condicional com cores</h2>
+            <p>Nesta aula vamos aprender a formatar cores nos gráficos usando MAXX e MINX.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/9VMIpsuCQJ8" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- News Ticker fixado no rodapé -->
+    <div class="news-ticker">
+        <div class="news-ticker-content">
+            <span><i class="fas fa-chart-line"></i> 🔊 #dicadogarcia. Está no ar o papo com a Rosani Coutinho no podcast Pausa na Programação!!</span>
+            <span><i class="fas fa-arrow-up"></i> Power BI adiciona novas visualizações avançadas</span>
+            <span><i class="fas fa-chart-bar"></i> Excel ganha novas funções de análise de dados</span>
+            <span><i class="fas fa-database"></i> Power BI Desktop agora permite conexão com R.</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Power BI Na Real - Todos os direitos reservados</p>
+    </footer>
+
+    <!-- Script para abrir e fechar o iframe do Mapa Mental -->
+    <script>
+        document.getElementById('openMapaMental').onclick = function(event) {
+            event.preventDefault();
+            // Ocultar outros elementos
+            document.getElementById('conteudoPrincipal').classList.add('hidden');
+            document.getElementById('cardsContainer').classList.add('hidden');
+            // Exibir iframe do mapa mental
+            document.getElementById('iframeMapaMental').src = 'Mapa_Mental.html';  // URL da página do mapa mental
+            document.getElementById('iframeContainer').style.display = 'block';    // Exibe o iframe
+        }
+
+        document.getElementById('closeIframe').onclick = function() {
+            // Exibir novamente os outros elementos
+            document.getElementById('conteudoPrincipal').classList.remove('hidden');
+            document.getElementById('cardsContainer').classList.remove('hidden');
+            // Esconder o iframe do mapa mental
+            document.getElementById('iframeContainer').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
