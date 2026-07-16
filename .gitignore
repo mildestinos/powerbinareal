@@ -1,0 +1,15 @@
+# Dependências
+node_modules/
+
+# Arquivos locais e temporários
+.env
+.env.*
+*.log
+tmp/
+.cache/
+
+# Editores e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
